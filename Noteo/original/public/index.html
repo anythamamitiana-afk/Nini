@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <title>Gestion des Notes - Établissement Scolaire</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <header>
+        <h1>Système de Gestion des Notes</h1>
+    </header>
+
+    <div class="container">
+        <!-- 1°/ BULLETIN DE NOTES -->
+        <section class="card">
+            <h2>1°/ Bulletin de Notes</h2>
+            <div class="form-group inline">
+                <input type="text" id="bulletin-num" placeholder="Numéro Élève (ex: E01)">
+                <input type="text" id="bulletin-annee" value="2025-2026" placeholder="Année">
+                <button onclick="genererBulletin()">Générer Bulletin</button>
+            </div>
+            <div id="bulletin-result"></div>
+        </section>
+
+        <!-- 2°/ LISTE DES ADMIS -->
+        <section class="card">
+            <h2>2°/ Liste des Élèves Admis</h2>
+            <div class="form-group inline">
+                <input type="text" id="admis-annee" value="2025-2026" placeholder="Année">
+                <button onclick="chargerAdmis()">Afficher les Admis</button>
+            </div>
+            <table id="table-admis">
+                <thead>
+                    <tr><th>N° Élève</th><th>Nom & Prénom</th><th>Niveau</th><th>Moyenne</th><th>Observation</th></tr>
+                </thead>
+                <tbody></tbody>
+            </table>
+        </section>
+
+        <!-- 3°/ CRUD ÉLÈVES -->
+        <section class="card">
+            <h2>3°/ Saisie / Modification Élève (CRUD)</h2>
+            <form id="form-eleve" onsubmit="sauvegarderEleve(event)">
+                <input type="text" id="el-num" placeholder="N° Élève" required>
+                <input type="text" id="el-nom" placeholder="Nom Complet" required>
+                <input type="number" id="el-age" placeholder="Âge" required>
+                <input type="text" id="el-niv" placeholder="Niveau (ex: L1)" required>
+                <button type="submit">Enregistrer Élève</button>
+            </form>
+            <h3>Liste des Élèves</h3>
+            <table id="table-eleves">
+                <thead><tr><th>N°</th><th>Nom</th><th>Âge</th><th>Niveau</th><th>Action</th></tr></thead>
+                <tbody></tbody>
+            </table>
+        </section>
+    </div>
+
+    <script src="app.js"></script>
+</body>
+</html>

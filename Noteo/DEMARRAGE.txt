@@ -1,0 +1,20 @@
+NOTÉO — Dernière version du site (design bleu, navigation par classe)
+
+Prérequis : Node.js 24 (npm inclus).
+
+1. Décompressez le ZIP.
+2. Ouvrez un terminal dans le dossier Noteo.
+3. Lancez : npm run dev
+4. Ouvrez : http://localhost:3000
+
+Aucune installation de dépendances nécessaire pour cette version.
+Tests : npm test
+Compilation : npm run build
+
+L’aperçu local utilise les données de démonstration dans une base en mémoire.
+Les modifications locales sont perdues au redémarrage.
+La base de données du site en ligne n’est pas exportée dans cette archive.
+
+Les sources actuelles sont dans public/ et worker/.
+Le dossier original/ contient le projet initial pour comparaison.
+Consultez README.md pour l’architecture et les limites du modèle.

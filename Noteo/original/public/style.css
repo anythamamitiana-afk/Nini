@@ -1,0 +1,14 @@
+body { font-family: Arial, sans-serif; background: #f4f6f9; margin: 0; padding: 20px; color: #333; }
+header { background: #2c3e50; color: #fff; text-align: center; padding: 15px; margin-bottom: 20px; }
+.container { max-width: 1000px; margin: 0 auto; }
+.card { background: #fff; padding: 20px; border-radius: 6px; box-shadow: 0 2px 5px rgba(0,0,0,0.1); margin-bottom: 25px; }
+.inline { display: flex; gap: 10px; margin-bottom: 15px; }
+input, button { padding: 10px; font-size: 14px; border: 1px solid #ccc; border-radius: 4px; }
+button { background: #3498db; color: white; border: none; cursor: pointer; }
+button:hover { background: #2980b9; }
+button.btn-danger { background: #e74c3c; }
+table { width: 100%; border-collapse: collapse; margin-top: 15px; }
+th, td { border: 1px solid #ddd; padding: 10px; text-align: left; }
+th { background: #f8f9fa; }
+.admis { color: green; font-weight: bold; }
+.ajourne { color: red; font-weight: bold; }

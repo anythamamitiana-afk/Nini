@@ -1,0 +1,10 @@
+{
+  "name": "gestion-notes-sites",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "node build.mjs && node preview.mjs",
+    "build": "node build.mjs",
+    "test": "node verify.mjs"
+  }
+}
