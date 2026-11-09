@@ -1,4 +1,4 @@
-import {DatabaseSync} from 'node:sqlite';import{readFileSync}from'node:fs';import assert from'node:assert/strict';import {api} from './worker/api.js';
+import {DatabaseSync} from 'node:sqlite';import{readFileSync}from'node:fs';import{runInNewContext}from'node:vm';import assert from'node:assert/strict';import {api} from './worker/api.js';
 const sqlite=new DatabaseSync(':memory:');sqlite.exec('PRAGMA foreign_keys=ON');sqlite.exec(readFileSync('drizzle/0000_schema.sql','utf8'));
 const DB={prepare(sql){let args=[];return {bind(...a){args=a;return this},async first(){return sqlite.prepare(sql).get(...args)||null},async all(){return {results:sqlite.prepare(sql).all(...args)}},async run(){const r=sqlite.prepare(sql).run(...args);return {meta:{changes:r.changes}}}}},async batch(items){sqlite.exec('BEGIN');try{const r=await Promise.all(items.map(x=>x.run()));sqlite.exec('COMMIT');return r}catch(e){sqlite.exec('ROLLBACK');throw e}}};
 async function call(path,method='GET',body,status=200){const r=await api(new Request('https://test/api/'+path,{method,headers:{'Content-Type':'application/json'},body:body?JSON.stringify(body):undefined}),{DB});const json=await r.json();assert.equal(r.status,status,JSON.stringify(json));return json}
@@ -17,3 +17,11 @@ await call('noter/TEST/T1/2027-2028','DELETE');await call('eleve/TEST','DELETE')
 await call('noter/batch','POST',{notes:[{Num_El:'E01',Code_Mat:'M101',Annee:'2025-2026',Note:15},{Num_El:'E02',Code_Mat:'M101',Annee:'2025-2026',Note:-1}]},400);assert.equal((await call('noter')).find(n=>n.Num_El==='E01'&&n.Code_Mat==='M101').Note,14);
 await call('noter/E01/M101/2025-2026','DELETE');assert.equal((await call('bulletin/E01/2025-2026')).observation,'Incomplet');
 console.log('OK : CRUD, renommage des références, contraintes, notes 0–20, saisie atomique, bulletins incomplets et suppression protégée.');
+const values=new Map(),storage={getItem:key=>values.get(key)??null,setItem:(key,value)=>values.set(key,value)},localWindow={location:{hostname:'example.github.io',pathname:'/noteo/'}};
+runInNewContext(readFileSync('../docs/local-api.js','utf8'),{window:localWindow,location:localWindow.location,localStorage:storage});
+const localCall=(path,method='GET',body)=>localWindow.NoteoLocalApi.request(path,method,body);
+assert.equal((await localCall('eleve')).length,3);assert.equal((await localCall('bulletin/E01/2025-2026')).moyenne,12.44);
+await localCall('noter/batch','POST',{notes:[{Num_El:'E01',Code_Mat:'M101',Annee:'2025-2026',Note:15}]});
+runInNewContext(readFileSync('../docs/local-api.js','utf8'),{window:localWindow,location:localWindow.location,localStorage:storage});
+assert.equal((await localWindow.NoteoLocalApi.request('noter')).find(n=>n.Num_El==='E01'&&n.Code_Mat==='M101').Note,15);
+console.log('OK : stockage navigateur, données de démonstration et persistance après rechargement.');

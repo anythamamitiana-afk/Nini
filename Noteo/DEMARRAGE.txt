@@ -15,6 +15,8 @@ L’aperçu local utilise les données de démonstration dans une base en mémoi
 Les modifications locales sont perdues au redémarrage.
 La base de données du site en ligne n’est pas exportée dans cette archive.
 
-Les sources actuelles sont dans public/ et worker/.
+Les sources du site principal publié sur GitHub Pages sont dans ../docs/.
+Consultez ../GITHUB_PAGES.md pour activer le déploiement gratuit.
+L’API locale utilisée par l’aperçu est dans worker/.
 Le dossier original/ contient le projet initial pour comparaison.
 Consultez README.md pour l’architecture et les limites du modèle.

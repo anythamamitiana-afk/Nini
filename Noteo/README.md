@@ -14,11 +14,13 @@ Le site déployé utilise une base D1 persistante. Les migrations existantes et 
 
 ## Organisation
 
-- `public/` : interface, styles responsives et interactions.
+- `../docs/` : interface principale, publiée gratuitement par GitHub Pages.
 - `worker/api.js` : routes CRUD, validations et calcul des bulletins.
 - `worker/seed.js` : jeu initial, inséré seulement à la première ouverture d’une base vide.
 - `drizzle/` : migrations du schéma.
 - `original/` : copie de référence du projet fourni avant adaptation.
+
+La version GitHub Pages enregistre les données dans le navigateur. Consultez `../GITHUB_PAGES.md` pour activer le déploiement.
 
 ## Règles
 
